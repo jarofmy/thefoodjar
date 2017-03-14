@@ -1,0 +1,40 @@
+<% include ../partials/header %>
+<div class="mealspage">
+   <div class="container-index">
+      <header class="jumbotron">
+         <div class="container">
+            <h1>Welcome to The Food Jar</h1>
+            <p id="introline">A Collection of Favorite Meals!</p>
+            <p>
+               <a href="/photos/new" class="btn btn-primary btn-large">Add Food to Jar</a>
+            </p>
+         </div>
+      </header>
+                
+       <div class="row">
+          <div class="col-lg-12">
+             <h3>The Food Jar</h3>
+          </div>
+       </div>
+   
+       <hr>
+   
+      <div class="container-jar">
+         <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+            <% photo.forEach(function(photo){ %>
+               <div class="col-md-3 col-sm-6">
+                  <div class="thumbnail">
+                     <a href="/photos/<%= photo._id %>"><img src="<%= photo.image %>"></a>
+                     <div class="caption">
+                        <h4><%= photo.name %></h4>
+                        <h6><%= photo.spot %></h6>
+                     </div>
+                  </div>
+               </div> 
+            <% }); %> 
+         </div>
+      </div>
+      
+   </div>
+</div>
+<% include ../partials/footer %>

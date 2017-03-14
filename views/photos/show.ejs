@@ -1,0 +1,53 @@
+<% include ../partials/header %>
+<div class="showpage">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="thumbnail">
+                <img class="image-responsive" src="<%= photo.image %>">
+                <div class="caption-full">
+                    <h4 class="pull-right"><i class="fa fa-cutlery"></i>: <%= photo.spot %></h4>
+                    <h4><a><%=photo.name%></a></h4>
+                    <p><%= photo.description %></p>
+                    <p>
+                        <em>Submitted by <%= photo.author.username %></em>
+                    </p>
+                    <% if(currentUser && photo.author.id.equals(currentUser._id)){ %>
+                        <a class="ui buttons" href="/photos/<%= photo._id %>/edit">
+                            <button class="ui button">Edit</button>
+                            <div class="or"></div>
+                            <form id="delete-for" action="/photos/<%= photo._id %>?_method=DELETE" method="POST">
+                                <button class="ui negative button">Delete</button>
+                            </form>
+                        </a>
+                    <% } %>
+                </div>
+            </div>
+            <div class="well">
+                <div class="text-right"><a class="btn btn-success" href="/photos/<%= photo._id %>/comments/new">Add New Comments</a></div>
+                <hr>
+                <% photo.comments.forEach(function(comment){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%= comment.author.username %></strong>
+                            <span class="pull-right">10 days ago</span>
+                            <p>
+                                <%= comment.text %>
+                            </p>
+                            <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                                <a class="ui buttons" href="/photos/<%= photo._id %>/comments/<%= comment._id %>/edit">
+                                    <button class="ui button">Edit</button>
+                                    <div class="or"></div>
+                                    <form id="delete-for" action="/photos/<%= photo._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                                        <button class="ui negative button" value="Delete">Delete</button>
+                                    </form>
+                                </a>
+                            <% } %>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>
